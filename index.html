@@ -49,7 +49,7 @@
             font-size: 20px;
             padding: 4px 12px;
             margin: 4px 0;
-            text-align: center; /* 所有信息项居中对齐 */
+            text-align: center;
         }
         .cert-preview-area {
             margin: 15px 0;
@@ -59,7 +59,7 @@
             font-size: 20px;
             margin-bottom: 10px;
             display: block;
-            text-align: center; /* 预览标签也居中 */
+            text-align: center;
             padding: 0 12px;
         }
         .cert-thumbnail {
@@ -75,10 +75,23 @@
         }
         .footer-links a {
             color: #0066cc;
-            text-decoration: none;
+            text-decoration: underline; /* 还原示例里的下划线链接 */
         }
         .footer-links p {
             margin: 6px 0;
+        }
+        /* 纯文本符号样式，和示例一致 */
+        .icon-link {
+            font-family: "Segoe UI Symbol", "Apple Symbols", sans-serif;
+            color: #212121;
+            margin-right: 6px;
+            font-size: 18px;
+        }
+        .icon-email {
+            font-family: "Segoe UI Symbol", "Apple Symbols", sans-serif;
+            color: #212121;
+            margin-right: 6px;
+            font-size: 18px;
         }
         /* 点击放大证书弹窗 */
         .modal {
@@ -107,7 +120,6 @@
     <div class="container">
         <h1 class="header-title">Tuvalu Ship Registry</h1>
 
-        <!-- 保留证书编号行，无红色背景 -->
         <div class="cert-number-bar">
             Certificate Number (ALB26M21181NOR)
         </div>
@@ -123,18 +135,17 @@
 
         <div class="cert-preview-label">Certificate Preview:</div>
         <div class="cert-preview-area">
-            < img class="cert-thumbnail" src="【你的证书图片直链】" alt="Certificate Preview" onclick="openModal()">
+            < img class="cert-thumbnail" src="https://cdn.jsdelivr.net/gh/DPJ1987/cert-page@main/1.png" alt="Certificate Preview" onclick="openModal()">
         </div>
 
         <div class="footer-links">
-            <p>🔗 <a href=" ">https://tvship.com/</a ></p >
-            <p>✉️ info@tvship.com</p >
+            <p><span class="icon-link">∞</span><a href=" ">https://tvship.com/</a ></p >
+            <p><span class="icon-email">✉</span> info@tvship.com</p >
         </div>
     </div>
 
-    <!-- 证书放大弹窗 -->
     <div class="modal" onclick="closeModal()">
-        < img src="【你的证书图片直链】" alt="Certificate Full View">
+        < img src="https://cdn.jsdelivr.net/gh/DPJ1987/cert-page@main/1.png" alt="Certificate Full View">
     </div>
 
     <script>
