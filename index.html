@@ -35,6 +35,7 @@
             font-size: 20px;
             margin-bottom: 15px;
             border-radius: 4px;
+            border: 1px solid #e0e0e0; /* 增加边框提升视觉效果 */
         }
         .section-title {
             background-color: #e8f4fc;
@@ -67,6 +68,10 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             cursor: pointer;
+            transition: transform 0.2s; /* 增加hover动画 */
+        }
+        .cert-thumbnail:hover {
+            transform: scale(1.05); /* 鼠标悬浮放大效果 */
         }
         .footer-links {
             text-align: center;
@@ -76,6 +81,9 @@
         .footer-links a {
             color: #0066cc;
             text-decoration: underline;
+        }
+        .footer-links a:hover {
+            color: #004c99; /* 链接hover效果 */
         }
         .footer-links p {
             margin: 6px 0;
@@ -137,8 +145,8 @@
         </div>
 
         <div class="footer-links">
-            <p><span class="icon-link">∞</span><a href=" ">https://tvship.com/</a ></p >
-            <p><span class="icon-email">✉</span> info@tvship.com</p >
+            <p><span class="icon-link">∞</span><a href="https://tvship.com/">https://tvship.com/</a></p>
+            <p><span class="icon-email">✉</span> info@tvship.com</p>
         </div>
     </div>
 
@@ -147,12 +155,26 @@
     </div>
 
     <script>
+        // 修复点击图片时不关闭modal的问题
         function openModal() {
-            document.querySelector('.modal').classList.add('active');
+            const modal = document.querySelector('.modal');
+            modal.classList.add('active');
+            // 阻止图片点击事件冒泡到modal
+            modal.querySelector('img').addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
         }
+        
         function closeModal() {
             document.querySelector('.modal').classList.remove('active');
         }
+
+        // 按ESC键关闭modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>
