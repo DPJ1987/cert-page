@@ -139,6 +139,7 @@
         <div class="info-item">Issued Date: 14 Mar 2026</div>
         <div class="info-item">Expiry Date: 13 May 2026</div>
 
+        <!-- 证书预览区域（缩略图已缩小） -->
         <div class="cert-preview-label">Certificate Preview:</div>
         <div class="cert-preview-area">
             <img class="cert-thumbnail" src="https://cdn.jsdelivr.net/gh/DPJ1987/cert-page@main/1.png" alt="Certificate Preview" onclick="openModal()">
@@ -155,11 +156,9 @@
     </div>
 
     <script>
-        // 修复点击图片时不关闭modal的问题
         function openModal() {
             const modal = document.querySelector('.modal');
             modal.classList.add('active');
-            // 阻止图片点击事件冒泡到modal
             modal.querySelector('img').addEventListener('click', function(e) {
                 e.stopPropagation();
             });
@@ -169,7 +168,6 @@
             document.querySelector('.modal').classList.remove('active');
         }
 
-        // 按ESC键关闭modal
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeModal();
