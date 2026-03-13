@@ -28,14 +28,15 @@
             margin: 20px 0;
         }
         .cert-number-bar {
-            background-color: #ffffff;
+            background-color: #f8f9fa; /* 浅灰背景增强辨识度 */
             color: #212121;
             padding: 12px;
             text-align: center;
             font-size: 20px;
             margin-bottom: 15px;
             border-radius: 4px;
-            border: 1px solid #e0e0e0; /* 增加边框提升视觉效果 */
+            border: 1px solid #e0e0e0;
+            font-weight: 500; /* 证书编号加粗 */
         }
         .section-title {
             background-color: #e8f4fc;
@@ -48,9 +49,13 @@
         }
         .info-item {
             font-size: 20px;
-            padding: 4px 12px;
+            padding: 8px 12px; /* 增加内边距提升可读性 */
             margin: 4px 0;
             text-align: center;
+        }
+        /* 为信息项添加轻微分隔 */
+        .info-item:not(:last-child) {
+            border-bottom: 1px solid #f0f0f0;
         }
         .cert-preview-area {
             margin: 15px 0;
@@ -62,16 +67,18 @@
             display: block;
             text-align: center;
             padding: 0 12px;
+            font-weight: 500;
         }
         .cert-thumbnail {
             max-width: 200px;
             border: 1px solid #ccc;
             border-radius: 4px;
             cursor: pointer;
-            transition: transform 0.2s; /* 增加hover动画 */
+            transition: transform 0.2s;
         }
         .cert-thumbnail:hover {
-            transform: scale(1.05); /* 鼠标悬浮放大效果 */
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* 增加阴影提升交互感 */
         }
         .footer-links {
             text-align: center;
@@ -81,20 +88,15 @@
         .footer-links a {
             color: #0066cc;
             text-decoration: underline;
+            transition: color 0.2s;
         }
         .footer-links a:hover {
-            color: #004c99; /* 链接hover效果 */
+            color: #004c99;
         }
         .footer-links p {
             margin: 6px 0;
         }
-        .icon-link {
-            font-family: "Segoe UI Symbol", "Apple Symbols", sans-serif;
-            color: #212121;
-            margin-right: 6px;
-            font-size: 18px;
-        }
-        .icon-email {
+        .icon-link, .icon-email {
             font-family: "Segoe UI Symbol", "Apple Symbols", sans-serif;
             color: #212121;
             margin-right: 6px;
@@ -111,14 +113,30 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            cursor: pointer;
         }
         .modal img {
             max-width: 90%;
             max-height: 90%;
             border-radius: 4px;
+            cursor: default; /* 图片区域恢复默认光标 */
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
         .modal.active {
             display: flex;
+            animation: fadeIn 0.2s ease; /* 淡入动画 */
+        }
+        /* 淡入动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        /* 适配小屏幕 */
+        @media (max-width: 480px) {
+            .header-title { font-size: 24px; }
+            .cert-number-bar, .info-item, .cert-preview-label { font-size: 18px; }
+            .section-title { font-size: 20px; }
+            .cert-thumbnail { max-width: 160px; }
         }
     </style>
 </head>
@@ -139,39 +157,49 @@
         <div class="info-item">Issued Date: 14 Mar 2026</div>
         <div class="info-item">Expiry Date: 13 May 2026</div>
 
-        <!-- 证书预览区域（缩略图已缩小） -->
+        <!-- 证书预览区域 -->
         <div class="cert-preview-label">Certificate Preview:</div>
         <div class="cert-preview-area">
             <img class="cert-thumbnail" src="https://cdn.jsdelivr.net/gh/DPJ1987/cert-page@main/1.png" alt="Certificate Preview" onclick="openModal()">
         </div>
 
         <div class="footer-links">
-            <p><span class="icon-link">∞</span><a href="https://tvship.com/">https://tvship.com/</a></p>
+            <p><span class="icon-link">∞</span><a href="https://tvship.com/" target="_blank">https://tvship.com/</a></p>
             <p><span class="icon-email">✉</span> info@tvship.com</p>
         </div>
     </div>
 
-    <div class="modal" onclick="closeModal()">
+    <div class="modal" id="certModal" onclick="closeModal()">
         <img src="https://cdn.jsdelivr.net/gh/DPJ1987/cert-page@main/1.png" alt="Certificate Full View">
     </div>
 
     <script>
+        // 缓存模态框元素，避免重复查询DOM
+        const modal = document.getElementById('certModal');
+        
         function openModal() {
-            const modal = document.querySelector('.modal');
             modal.classList.add('active');
-            modal.querySelector('img').addEventListener('click', function(e) {
+            // 阻止图片点击事件冒泡到模态框
+            const modalImg = modal.querySelector('img');
+            modalImg.addEventListener('click', function(e) {
                 e.stopPropagation();
-            });
+            }, { once: true }); // 一次性监听，避免重复绑定
         }
         
         function closeModal() {
-            document.querySelector('.modal').classList.remove('active');
+            modal.classList.remove('active');
         }
 
+        // ESC键关闭模态框
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
                 closeModal();
             }
+        });
+
+        // 页面加载完成后提示（可选）
+        window.addEventListener('load', function() {
+            console.log('Tuvalu Ship Registry page loaded successfully');
         });
     </script>
 </body>
